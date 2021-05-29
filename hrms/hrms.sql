@@ -13,13 +13,13 @@ CREATE TABLE public.activation_codes
 
 CREATE TABLE public.candidates
 (
-    user_id integer NOT NULL,
+    id integer NOT NULL,
     first_name text NOT NULL,
     last_name text NOT NULL,
-    nationality_id text NOT NULL,
     birth_year text NOT NULL,
     is_activated boolean NOT NULL,
-    PRIMARY KEY (user_id)
+    identification_number character varying(255),
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE public.candidates_activations
@@ -27,6 +27,13 @@ CREATE TABLE public.candidates_activations
     activation_code_id integer NOT NULL,
     candidate_id integer NOT NULL,
     PRIMARY KEY (activation_code_id)
+);
+
+CREATE TABLE public.cities
+(
+    id integer NOT NULL,
+    city_name text NOT NULL,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE public.employer_activation_by_system_users
@@ -40,12 +47,12 @@ CREATE TABLE public.employer_activation_by_system_users
 
 CREATE TABLE public.employers
 (
-    user_id integer NOT NULL,
+    id integer NOT NULL,
     company_name character varying(200) NOT NULL,
     web_adress character varying(100) NOT NULL,
     phone_number character varying(11) NOT NULL,
     is_activated boolean NOT NULL,
-    PRIMARY KEY (user_id)
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE public.employers_activations
@@ -57,9 +64,25 @@ CREATE TABLE public.employers_activations
 
 CREATE TABLE public.job_positions
 (
-    position_id integer NOT NULL,
+    position_id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 30000 CACHE 1 ),
     position_name character varying(30) NOT NULL,
     PRIMARY KEY (position_id)
+);
+
+CREATE TABLE public.job_postings
+(
+    id integer NOT NULL,
+    deadline_date date,
+    is_active boolean,
+    job_description character varying(255),
+    listing_date date,
+    max_salary double precision,
+    min_salary double precision,
+    number_of_open_position integer,
+    city_id integer,
+    employer_id integer,
+    position_id integer,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE public.system_users
@@ -72,14 +95,14 @@ CREATE TABLE public.system_users
 
 CREATE TABLE public.users
 (
-    id integer NOT NULL,
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 30000 CACHE 1 ),
     email character varying(50) NOT NULL,
     password character varying(20) NOT NULL,
     PRIMARY KEY (id)
 );
 
 ALTER TABLE public.candidates
-    ADD FOREIGN KEY (user_id)
+    ADD FOREIGN KEY (id)
     REFERENCES public.users (id)
     NOT VALID;
 
@@ -92,13 +115,13 @@ ALTER TABLE public.candidates_activations
 
 ALTER TABLE public.candidates_activations
     ADD FOREIGN KEY (candidate_id)
-    REFERENCES public.candidates (user_id)
+    REFERENCES public.candidates (id)
     NOT VALID;
 
 
 ALTER TABLE public.employer_activation_by_system_users
     ADD FOREIGN KEY (employer_id)
-    REFERENCES public.employers (user_id)
+    REFERENCES public.employers (id)
     NOT VALID;
 
 
@@ -109,7 +132,7 @@ ALTER TABLE public.employer_activation_by_system_users
 
 
 ALTER TABLE public.employers
-    ADD FOREIGN KEY (user_id)
+    ADD FOREIGN KEY (id)
     REFERENCES public.users (id)
     NOT VALID;
 
@@ -122,7 +145,25 @@ ALTER TABLE public.employers_activations
 
 ALTER TABLE public.employers_activations
     ADD FOREIGN KEY (employer_id)
-    REFERENCES public.employers (user_id)
+    REFERENCES public.employers (id)
+    NOT VALID;
+
+
+ALTER TABLE public.job_postings
+    ADD FOREIGN KEY (city_id)
+    REFERENCES public.cities (id)
+    NOT VALID;
+
+
+ALTER TABLE public.job_postings
+    ADD FOREIGN KEY (position_id)
+    REFERENCES public.job_positions (position_id)
+    NOT VALID;
+
+
+ALTER TABLE public.job_postings
+    ADD FOREIGN KEY (employer_id)
+    REFERENCES public.employers (id)
     NOT VALID;
 
 

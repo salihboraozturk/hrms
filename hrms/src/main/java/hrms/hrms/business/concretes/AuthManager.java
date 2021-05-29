@@ -59,7 +59,7 @@ public class AuthManager implements AuthService {
 				.getByIdentificationNumber(candidateForRegisterDto.getIdentificationNumber()).getData() != null) {
 			return new ErrorResult(Messages.emailAndIdentityExists);
 		}
-
+ 
 		Candidate candidatesForRegister = modelMapper.map(candidateForRegisterDto, Candidate.class);
 		candidateService.add(candidatesForRegister);
 		return new SuccessResult(Messages.savingSuccess);
