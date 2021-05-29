@@ -1,5 +1,5 @@
 package hrms.hrms.core.utilities.validation.mail;
-
+ 
 public class MailValidationManager implements MailValidationService {
 
 	@Override

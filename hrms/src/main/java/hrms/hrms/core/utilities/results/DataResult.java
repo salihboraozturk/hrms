@@ -1,5 +1,5 @@
 package hrms.hrms.core.utilities.results;
-
+ 
 public class DataResult<T> extends Result {
 	private T data;
 

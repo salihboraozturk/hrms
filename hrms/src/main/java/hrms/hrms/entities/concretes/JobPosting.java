@@ -1,5 +1,5 @@
 package hrms.hrms.entities.concretes;
-
+ 
 import java.sql.Date;
 
 import javax.persistence.Column;

@@ -1,5 +1,5 @@
 package hrms.hrms.business.constants;
-
+ 
 public class Messages {
 	public static String savingSuccess = "Kayıt Başarılı.";
 	public static String emailExists = "Bu e-posta zaten kayıtlı.";
