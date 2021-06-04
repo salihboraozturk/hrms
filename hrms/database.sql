@@ -11,6 +11,15 @@ CREATE TABLE public.activation_codes
     PRIMARY KEY (id)
 );
 
+CREATE TABLE public.candidate_links
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 20000 CACHE 1 ),
+    user_id integer NOT NULL,
+    link_type_id integer NOT NULL,
+    link_path text NOT NULL,
+    PRIMARY KEY (id)
+);
+
 CREATE TABLE public.candidates
 (
     id integer NOT NULL,
@@ -19,6 +28,8 @@ CREATE TABLE public.candidates
     birth_year text NOT NULL,
     is_activated boolean NOT NULL,
     identification_number character varying(255),
+    image_url text,
+    description text,
     PRIMARY KEY (id)
 );
 
@@ -62,6 +73,17 @@ CREATE TABLE public.employers_activations
     PRIMARY KEY (activation_code_id)
 );
 
+CREATE TABLE public.job_experiences
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 20000 CACHE 1 ),
+    user_id integer NOT NULL,
+    workplace_name text NOT NULL,
+    "position" text NOT NULL,
+    start_date date NOT NULL,
+    finish_date date,
+    PRIMARY KEY (id)
+);
+
 CREATE TABLE public.job_positions
 (
     position_id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 30000 CACHE 1 ),
@@ -85,6 +107,41 @@ CREATE TABLE public.job_postings
     PRIMARY KEY (id)
 );
 
+CREATE TABLE public.languages
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 20000 CACHE 1 ),
+    user_id integer NOT NULL,
+    language_name text NOT NULL,
+    language_level integer NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE public.link_types
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 20000 CACHE 1 ),
+    link_type_name text NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE public.schools
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 20000 CACHE 1 ),
+    user_id integer NOT NULL,
+    department text NOT NULL,
+    start_date date NOT NULL,
+    graduate_date date,
+    school_name text,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE public.skills
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 20000 CACHE 1 ),
+    user_id integer NOT NULL,
+    skill_name text NOT NULL,
+    PRIMARY KEY (id)
+);
+
 CREATE TABLE public.system_users
 (
     user_id integer NOT NULL,
@@ -100,6 +157,18 @@ CREATE TABLE public.users
     password character varying(20) NOT NULL,
     PRIMARY KEY (id)
 );
+
+ALTER TABLE public.candidate_links
+    ADD FOREIGN KEY (link_type_id)
+    REFERENCES public.link_types (id)
+    NOT VALID;
+
+
+ALTER TABLE public.candidate_links
+    ADD FOREIGN KEY (user_id)
+    REFERENCES public.candidates (id)
+    NOT VALID;
+
 
 ALTER TABLE public.candidates
     ADD FOREIGN KEY (id)
@@ -149,6 +218,12 @@ ALTER TABLE public.employers_activations
     NOT VALID;
 
 
+ALTER TABLE public.job_experiences
+    ADD FOREIGN KEY (user_id)
+    REFERENCES public.candidates (id)
+    NOT VALID;
+
+
 ALTER TABLE public.job_postings
     ADD FOREIGN KEY (city_id)
     REFERENCES public.cities (id)
@@ -164,6 +239,24 @@ ALTER TABLE public.job_postings
 ALTER TABLE public.job_postings
     ADD FOREIGN KEY (employer_id)
     REFERENCES public.employers (id)
+    NOT VALID;
+
+
+ALTER TABLE public.languages
+    ADD FOREIGN KEY (user_id)
+    REFERENCES public.candidates (id)
+    NOT VALID;
+
+
+ALTER TABLE public.schools
+    ADD FOREIGN KEY (user_id)
+    REFERENCES public.candidates (id)
+    NOT VALID;
+
+
+ALTER TABLE public.skills
+    ADD FOREIGN KEY (user_id)
+    REFERENCES public.candidates (id)
     NOT VALID;
 
 
