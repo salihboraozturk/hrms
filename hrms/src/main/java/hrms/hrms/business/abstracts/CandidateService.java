@@ -2,6 +2,8 @@ package hrms.hrms.business.abstracts;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import hrms.hrms.core.utilities.results.DataResult;
 import hrms.hrms.core.utilities.results.Result;
 import hrms.hrms.entities.concretes.Candidate;
@@ -19,4 +21,6 @@ public interface CandidateService {
 	DataResult<CurriculumVitaeDto> getCVByCandidate(int candidateId);
 
 	Result changeDescription(int candidateId, String description);
+
+	Result uploadPhoto(int candidateId, MultipartFile file);
 }

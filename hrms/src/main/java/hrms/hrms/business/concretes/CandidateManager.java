@@ -1,12 +1,15 @@
 package hrms.hrms.business.concretes;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import hrms.hrms.business.abstracts.CandidateService;
 import hrms.hrms.business.abstracts.*;
+import hrms.hrms.core.utilities.image.ImageService;
 import hrms.hrms.core.utilities.results.DataResult;
 import hrms.hrms.core.utilities.results.Result;
 import hrms.hrms.core.utilities.results.SuccessDataResult;
@@ -23,17 +26,19 @@ public class CandidateManager implements CandidateService {
 	private LinkService linkService;
 	private SchoolService schoolService;
 	private SkillService skillService;
+	private ImageService imageService;
 
 	@Autowired
 	public CandidateManager(CandidateDao candidateDao, LinkService linkService,
 			JobExperienceService jobExperienceService, LanguageService languageService, SchoolService schoolService,
-			SkillService skillService) {
+			SkillService skillService, ImageService imageService) {
 		this.candidateDao = candidateDao;
 		this.linkService = linkService;
 		this.jobExperienceService = jobExperienceService;
 		this.languageService = languageService;
 		this.schoolService = schoolService;
 		this.skillService = skillService;
+		this.imageService = imageService;
 	}
 
 	@Override
@@ -76,6 +81,16 @@ public class CandidateManager implements CandidateService {
 		Candidate candidateToAddDescription = this.getById(candidateId).getData();
 		candidateToAddDescription.setDescription(description);
 		this.candidateDao.save(candidateToAddDescription);
+		return new SuccessResult();
+	}
+
+	@Override
+	public Result uploadPhoto(int candidateId, MultipartFile file) {
+		Map<String, String> result = (Map<String, String>) this.imageService.uploadPhoto(file).getData();
+		String url = result.get("url");
+		Candidate candidateToAddPhoto = this.getById(candidateId).getData();
+		candidateToAddPhoto.setImageUrl(url);
+		this.candidateDao.save(candidateToAddPhoto);
 		return new SuccessResult();
 	}
 
