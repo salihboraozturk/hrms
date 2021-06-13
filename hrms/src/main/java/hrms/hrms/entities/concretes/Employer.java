@@ -31,6 +31,8 @@ public class Employer extends User {
 	private String webAddress;
 	@Column(name = "phone_number")
 	private String phoneNumber;
+	@Column(name = "company_logo")
+	private String companyLogo;
 	@Column(name = "is_activated")
 	private boolean isActivated;
 

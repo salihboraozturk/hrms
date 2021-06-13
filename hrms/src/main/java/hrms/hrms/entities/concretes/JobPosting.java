@@ -1,5 +1,5 @@
 package hrms.hrms.entities.concretes;
- 
+
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -58,4 +58,12 @@ public class JobPosting {
 	@ManyToOne()
 	@JoinColumn(name = "city_id")
 	private City city;
+
+	@ManyToOne()
+	@JoinColumn(name = "job_type_id")
+	private JobType jobType;
+
+	@ManyToOne()
+	@JoinColumn(name = "working_time_id")
+	private WorkingTime workingTime;
 }
