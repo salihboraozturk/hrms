@@ -31,7 +31,7 @@ public class JobPostingsController {
 	public DataResult<List<JobPosting>> getAll() {
 		return this.jobPostingService.getAll();
 	}
-
+ 
 	@PostMapping("/add")
 	public Result add(@RequestBody JobPosting jobPosting) {
 		return this.jobPostingService.add(jobPosting);
