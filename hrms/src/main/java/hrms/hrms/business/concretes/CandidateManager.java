@@ -93,5 +93,16 @@ public class CandidateManager implements CandidateService {
 		this.candidateDao.save(candidateToAddPhoto);
 		return new SuccessResult();
 	}
-
+	@Override
+	public Result updateCV(Candidate candidate)
+	{
+		Candidate candidateToUpdate = this.getById(candidate.getId()).getData();
+		candidateToUpdate.setBirthYear(candidate.getBirthYear());
+		candidateToUpdate.setDescription(candidate.getDescription());
+		candidateToUpdate.setEmail(candidate.getEmail());
+		candidateToUpdate.setFirstName(candidate.getFirstName());
+		candidateToUpdate.setLastName(candidate.getLastName());
+		this.candidateDao.save(candidateToUpdate);
+		return new SuccessResult("Kullanıcı Bilgileri Güncellendi");
+	}
 }

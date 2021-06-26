@@ -1,6 +1,7 @@
 package hrms.hrms.business.concretes;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,13 @@ public class LinkManager implements LinkService {
 		this.linkDao.save(link);
 		return new SuccessResult();
 	}
-
+	
+	@Override
+	public Result update(Link link)
+	{ 
+		Link  linkToUpdate = linkDao.findById(link.getId());
+		linkToUpdate.setLinkPath(link.getLinkPath());
+		this.linkDao.save(linkToUpdate);
+		return new SuccessResult("Kullanıcı Bilgileri Güncellendi");
+	}
 }

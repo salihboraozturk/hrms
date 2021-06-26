@@ -1,9 +1,12 @@
 package hrms.hrms.business.concretes;
  
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import hrms.hrms.business.abstracts.JobPostingService;
@@ -65,4 +68,35 @@ public class JobPostingManager implements JobPostingService {
 		this.jobPostingDao.save(jobPostingToUpdate);
 		return new SuccessResult(Messages.changeStatus);
 	}
+	
+	@Override
+	public DataResult<List<JobPosting>> getAll(int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.findAll(pageable).getContent());
+	}
+	
+	@Override
+	public DataResult<JobPosting> getById(int jobPostingId)
+	{
+		return new SuccessDataResult<JobPosting>(this.jobPostingDao.findById(jobPostingId));
+	}
+	
+	@Override
+	public DataResult<List<JobPosting>> getByCityIdAndWorkingTimeId(int cityId, int workingTimeId)
+	{
+		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.findByIsActiveTrueAndCity_IdAndWorkingTime_Id(cityId, workingTimeId));
+	}
+
+	@Override
+	public DataResult<List<JobPosting>> getByCityId(int cityId)
+	{
+		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.findByIsActiveTrueAndCity_Id(cityId));
+	}
+
+	@Override
+	public DataResult<List<JobPosting>> getByWorkingTimeId(int workingTimeId)
+	{
+		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.findByIsActiveTrueAndWorkingTime_Id(workingTimeId));
+	}
+	
 }

@@ -39,4 +39,10 @@ public class SchoolsController
 	{
 		return this.schoolService.getCandidateSchoolsDesc(candidateId);
 	}
+	
+	@PostMapping("/update")
+	public Result update(@RequestBody School school)
+	{
+		return this.schoolService.update(school);
+	}
 }

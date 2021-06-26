@@ -10,4 +10,5 @@ public interface SchoolDao extends JpaRepository<School, Integer>
 {
 	List<School> getByCandidate_Id(int candidateId);
 	List<School> getByCandidate_IdOrderByGraduateDateDesc(int candidateId);
+	School getById(int schoolId);
 }

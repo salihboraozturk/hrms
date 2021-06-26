@@ -1,5 +1,5 @@
 package hrms.hrms.business.abstracts;
- 
+
 import java.sql.Date;
 import java.util.List;
 
@@ -19,4 +19,14 @@ public interface JobPostingService {
 	DataResult<List<JobPosting>> getIsActiveTrueAndEmployerId(int employerId);
 
 	Result changeJobPostingIsActivity(int jobPostingId);
+
+	 DataResult<List<JobPosting>> getAll(int pageNo, int pageSize);
+	 
+	DataResult<JobPosting> getById(int jobPostingId);
+
+	DataResult<List<JobPosting>> getByCityIdAndWorkingTimeId(int cityId, int workingTimeId);
+
+	DataResult<List<JobPosting>> getByCityId(int cityId);
+
+	DataResult<List<JobPosting>> getByWorkingTimeId(int workingTimeId);
 }

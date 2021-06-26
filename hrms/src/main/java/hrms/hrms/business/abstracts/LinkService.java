@@ -10,4 +10,5 @@ public interface LinkService {
 
 	DataResult<List<Link>> getByCandidateId(int candidateId);
 	Result add(Link link);
+	Result update(Link link);
 }

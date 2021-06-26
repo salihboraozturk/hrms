@@ -36,4 +36,13 @@ public class SkillManager implements SkillService
 		this.skillDao.save(skill);
 		return new SuccessResult();
 	}
+	
+	@Override
+	public Result update(Skill skill)
+	{
+		Skill skillToUpdate = this.skillDao.getById(skill.getId());
+		skillToUpdate.setSkillName(skill.getSkillName());
+		this.skillDao.save(skillToUpdate);
+		return new SuccessResult("Kullanıcı Bilgileri Güncellendi");
+	}
 }

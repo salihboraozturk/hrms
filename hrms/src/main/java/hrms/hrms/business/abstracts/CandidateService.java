@@ -23,4 +23,6 @@ public interface CandidateService {
 	Result changeDescription(int candidateId, String description);
 
 	Result uploadPhoto(int candidateId, MultipartFile file);
+	
+	Result updateCV(Candidate candidate);
 }

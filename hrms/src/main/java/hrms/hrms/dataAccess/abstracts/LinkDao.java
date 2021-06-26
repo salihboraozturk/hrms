@@ -8,4 +8,5 @@ import hrms.hrms.entities.concretes.Link;
 
 public interface LinkDao extends JpaRepository<Link, Integer> {
 	List<Link> getByCandidate_Id(int candidateId);
+	Link findById(int linkId);
 }

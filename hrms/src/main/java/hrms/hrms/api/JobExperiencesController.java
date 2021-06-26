@@ -36,4 +36,10 @@ public class JobExperiencesController
 	{
 		return this.jobExperienceService.getCandidateJobExperiencesDesc(candidateId);
 	}
+	
+	@PostMapping("/update")
+	public Result update(@RequestBody JobExperience jobExperience)
+	{
+		return this.jobExperienceService.update(jobExperience);
+	}
 }

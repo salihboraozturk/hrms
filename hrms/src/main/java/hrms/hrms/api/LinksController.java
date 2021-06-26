@@ -23,5 +23,9 @@ public class LinksController {
 	public Result add(@RequestBody Link link) {
 		return this.linkService.add(link);
 	}
-
+	@PostMapping("/update")
+	public Result update(@RequestBody Link link)
+	{
+		return this.linkService.update(link);
+	}
 }

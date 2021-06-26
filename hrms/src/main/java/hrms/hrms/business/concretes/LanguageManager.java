@@ -36,4 +36,13 @@ public class LanguageManager implements LanguageService
 		this.languageDao.save(language);
 		return new SuccessResult();
 	}
+	@Override
+	public Result update(Language language)
+	{
+		Language languageToUpdate = this.languageDao.getById(language.getId());
+		languageToUpdate.setLanguageLevel(language.getLanguageLevel());
+		languageToUpdate.setLanguageName(language.getLanguageName());
+		this.languageDao.save(languageToUpdate);
+		return new SuccessResult("Kullanıcı Bilgileri Güncellendi");
+	}
 }
