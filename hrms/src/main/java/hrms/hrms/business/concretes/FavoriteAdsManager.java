@@ -19,29 +19,25 @@ import hrms.hrms.entities.concretes.FavoriteAds;
 public class FavoriteAdsManager implements FavoriteAdsService {
 	private FavoriteAdsDao favoriteAdsDao;
 	private CandidateService candidateService;
-	
+
 	@Autowired
-	public FavoriteAdsManager(FavoriteAdsDao favoriteAdsDao,CandidateService candidateService)
-	{
+	public FavoriteAdsManager(FavoriteAdsDao favoriteAdsDao, CandidateService candidateService) {
 		this.favoriteAdsDao = favoriteAdsDao;
 		this.candidateService = candidateService;
 	}
 
 	@Override
 	public DataResult<List<FavoriteAds>> getFavoritesByCandidateId(int candidateId) {
-	
+
 		return new SuccessDataResult<List<FavoriteAds>>(this.favoriteAdsDao.getByCandidate_Id(candidateId));
 	}
-	
+
 	@Override
-	public Result changeJobPostingFavoriteStatus(int candidateId,int jobPostingId)
-	{
+	public Result changeJobPostingFavoriteStatus(int candidateId, int jobPostingId) {
 		FavoriteAds favoriteAds = this.favoriteAdsDao.getByCandidate_IdAndJobPostingId(candidateId, jobPostingId);
-		if (favoriteAds != null)
-		{
+		if (favoriteAds != null) {
 			this.favoriteAdsDao.deleteById(favoriteAds.getId());
-		} else
-		{
+		} else {
 			FavoriteAds favorite = new FavoriteAds();
 			Candidate candidate = new Candidate();
 			candidate = this.candidateService.getById(candidateId).getData();

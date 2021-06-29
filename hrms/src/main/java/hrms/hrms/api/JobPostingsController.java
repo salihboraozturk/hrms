@@ -80,7 +80,7 @@ public class JobPostingsController {
 	{
 		return this.jobPostingService.getByCityId(cityId);
 	}
-
+	
 	@GetMapping("/getbyworkingtimeid")
 	public DataResult<List<JobPosting>> getByWorkingTimeId(int workingTimeId)
 	{

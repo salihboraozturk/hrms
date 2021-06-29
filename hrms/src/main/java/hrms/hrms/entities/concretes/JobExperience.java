@@ -1,12 +1,13 @@
 package hrms.hrms.entities.concretes;
 
 
+import java.time.LocalDate;
 import java.util.Date;
 
 
 import javax.persistence.*;
 
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -30,9 +31,11 @@ public class JobExperience {
 	@Column(name = "position")
 	private String position;
 	@Column(name = "start_date")
-	private Date startDate;
+	@JsonFormat(pattern="dd-MM-yyyy")
+	private LocalDate startDate;
 	@Column(name = "finish_date")
-	private Date finishDate;
+	@JsonFormat(pattern="dd-MM-yyyy")
+	private LocalDate finishDate;
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne()

@@ -34,7 +34,6 @@ public class Link {
 	@JoinColumn(name = "user_id")
 	private Candidate candidate;
 
-	@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne()
 	@JoinColumn(name = "link_type_id")
 	private LinkType linkType;
