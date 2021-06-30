@@ -94,6 +94,12 @@ public class CandidateManager implements CandidateService {
 		return new SuccessResult();
 	}
 	@Override
+	public Result update(Candidate candidate)
+	{
+		this.candidateDao.save(candidate);
+		return new SuccessResult("Kullanıcı Bilgileri Güncellendi");
+	}
+	@Override
 	public Result updateCV(Candidate candidate)
 	{
 		Candidate candidateToUpdate = this.getById(candidate.getId()).getData();

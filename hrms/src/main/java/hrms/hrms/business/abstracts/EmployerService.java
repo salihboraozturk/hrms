@@ -14,4 +14,6 @@ Result add(Employer employer);
 DataResult<List<Employer>> getAll();
 DataResult<Employer> getById(int employerId);
 Result uploadCompanyPhoto(int employerId, MultipartFile file);
+Result update(Employer employer);
+Result confirmUpdate(int employerId);
 }

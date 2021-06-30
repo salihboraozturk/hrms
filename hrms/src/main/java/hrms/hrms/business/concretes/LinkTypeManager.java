@@ -1,5 +1,7 @@
 package hrms.hrms.business.concretes;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +31,11 @@ public class LinkTypeManager implements LinkTypeService {
 	@Override
 	public DataResult<LinkType> getById(int linkTypeId) {
 		return new SuccessDataResult<LinkType>(this.linkTypeDao.getById(linkTypeId));
+	}
+
+	@Override
+	public DataResult<List<LinkType>> getAll() {
+		
+		return new SuccessDataResult<List<LinkType>>(this.linkTypeDao.findAll());
 	}
 }

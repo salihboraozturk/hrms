@@ -47,4 +47,16 @@ public class EmployersController {
 	public Result uploadCompanyPhoto(@RequestParam int employerId, @RequestBody MultipartFile file) {
 		return this.employerService.uploadCompanyPhoto(employerId, file);
 	}
+	
+	@PostMapping("/update")
+	public Result update(@RequestBody Employer employer)
+	{
+		return this.employerService.update(employer);s
+	}
+	
+	@PostMapping("/confirmUpdate")
+	public Result confirmUpdate(@RequestParam int employerId)
+	{
+		return this.employerService.confirmUpdate(employerId);
+	}
 }

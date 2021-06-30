@@ -24,5 +24,7 @@ public interface CandidateService {
 
 	Result uploadPhoto(int candidateId, MultipartFile file);
 	
+	Result update(Candidate candidate);
+	
 	Result updateCV(Candidate candidate);
 }

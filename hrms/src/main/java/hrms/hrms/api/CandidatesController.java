@@ -1,5 +1,5 @@
 package hrms.hrms.api;
- 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +19,7 @@ import hrms.hrms.core.utilities.results.Result;
 import hrms.hrms.entities.concretes.Candidate;
 import hrms.hrms.entities.concretes.JobPosition;
 import hrms.hrms.entities.dto.CurriculumVitaeDto;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/api/candidates")
@@ -29,27 +30,30 @@ public class CandidatesController {
 	public CandidatesController(CandidateService candidateService) {
 		this.candidateService = candidateService;
 	}
+
 	@GetMapping("/getall")
 	public DataResult<List<Candidate>> getAll() {
-		return  candidateService.getAll();
+		return candidateService.getAll();
 	}
+
 	@PostMapping("/changeDescription")
-	public Result addDescription(@RequestParam int candidateId,@RequestParam String description)
-	{
+	public Result addDescription(@RequestParam int candidateId, @RequestParam String description) {
 		return this.candidateService.changeDescription(candidateId, description);
 	}
 
-	
 	@GetMapping("/getCVByCandidate")
-	public DataResult<CurriculumVitaeDto> getCVByCandidateId(@RequestParam int candidateId)
-	{
+	public DataResult<CurriculumVitaeDto> getCVByCandidateId(@RequestParam int candidateId) {
 		return this.candidateService.getCVByCandidate(candidateId);
 	}
-	
+
 	@PostMapping("/uploadPhoto")
-	public Result uploadImage(@RequestParam int candidateId,@RequestBody MultipartFile file)
-	{
-		return this.candidateService.uploadPhoto(candidateId,file);
+	public Result uploadImage(@RequestParam int candidateId, @RequestBody MultipartFile file) {
+		return this.candidateService.uploadPhoto(candidateId, file);
+	}
+
+	@PostMapping("/update")
+	public Result upload(@RequestBody Candidate candidate) {
+		return this.candidateService.update(candidate);
 	}
 
 }

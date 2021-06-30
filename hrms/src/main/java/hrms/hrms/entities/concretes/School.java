@@ -37,10 +37,10 @@ public class School {
 	@Column(name = "department")
 	private String department;
 	@Column(name = "start_date")
-	@JsonFormat(pattern="dd-MM-yyyy")
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate entryDate;
 	@Column(name = "graduate_date")
-	@JsonFormat(pattern="dd-MM-yyyy")
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate graduateDate;
 	
 	@JsonProperty(access = Access.WRITE_ONLY)

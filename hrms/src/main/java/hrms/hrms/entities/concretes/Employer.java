@@ -42,7 +42,7 @@ public class Employer extends User {
 	private String companyLogo;
 	@Column(name = "is_activated")
 	private boolean isActivated;
-
+ 
 	@Type(type = "json")
 	@Column(name = "update_employer", columnDefinition = "jsonb")
 	private Map<String, Object> update;

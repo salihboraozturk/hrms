@@ -31,10 +31,10 @@ public class JobExperience {
 	@Column(name = "position")
 	private String position;
 	@Column(name = "start_date")
-	@JsonFormat(pattern="dd-MM-yyyy")
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate startDate;
 	@Column(name = "finish_date")
-	@JsonFormat(pattern="dd-MM-yyyy")
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate finishDate;
 	
 	@JsonProperty(access = Access.WRITE_ONLY)

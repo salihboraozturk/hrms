@@ -1,11 +1,14 @@
 package hrms.hrms.business.concretes;
 
 import java.util.List;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import hrms.hrms.business.abstracts.EmployerService;
 import hrms.hrms.core.utilities.image.ImageService;
@@ -20,11 +23,13 @@ import hrms.hrms.entities.concretes.Employer;
 public class EmployerManager implements EmployerService {
 	private EmployerDao employerDao;
 	private ImageService imageService;
-
+	private ObjectMapper objectMapper;
+	
 	@Autowired
-	public EmployerManager(EmployerDao employerDao,ImageService imageService) {
+	public EmployerManager(EmployerDao employerDao,ImageService imageService,ObjectMapper objectMapper) {
 		this.employerDao = employerDao;
 		this.imageService = imageService;
+		this.objectMapper=objectMapper;
 	}
 
 	@Override
@@ -52,6 +57,26 @@ public class EmployerManager implements EmployerService {
 	public DataResult<Employer> getById(int employerId) {
 
 		return new SuccessDataResult<Employer>(this.employerDao.getById(employerId));
+	}
+	
+	@Override
+	public Result update(Employer employer)
+	{
+		Employer employerToUpdate = this.getById(employer.getId()).getData();
+		Map<String,Object> update = this.objectMapper.convertValue(employer,Map.class);
+		employerToUpdate.setUpdate(update);
+		this.employerDao.save(employerToUpdate);
+		return new SuccessResult("Güncelleme İstediğiniz Alındı.");
+	}
+ 
+	@Override
+	public Result confirmUpdate(int employerId)
+	{
+		Employer employerToConfirmUpdate = this.getById(employerId).getData();
+		Employer tempEmployer = this.objectMapper.convertValue(employerToConfirmUpdate.getUpdate(), Employer.class);
+		tempEmployer.setUpdate(null);
+		this.employerDao.save(tempEmployer);
+		return new SuccessResult("Güncelleme Onaylandı");
 	}
 
 }
