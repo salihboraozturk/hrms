@@ -14,35 +14,36 @@ import hrms.hrms.dataAccess.abstracts.SkillDao;
 import hrms.hrms.entities.concretes.Skill;
 
 @Service
-public class SkillManager implements SkillService
-{
+public class SkillManager implements SkillService {
 	private SkillDao skillDao;
 
 	@Autowired
-	public SkillManager(SkillDao skillDao)
-	{
+	public SkillManager(SkillDao skillDao) {
 		this.skillDao = skillDao;
 	}
 
 	@Override
-	public DataResult<List<Skill>> getByCandidate(int candidateId)
-	{
+	public DataResult<List<Skill>> getByCandidate(int candidateId) {
 		return new SuccessDataResult<List<Skill>>(this.skillDao.getByCandidate_Id(candidateId));
 	}
 
 	@Override
-	public Result add(Skill skill)
-	{
+	public Result add(Skill skill) {
 		this.skillDao.save(skill);
 		return new SuccessResult();
 	}
-	
+
 	@Override
-	public Result update(Skill skill)
-	{
+	public Result update(Skill skill) {
 		Skill skillToUpdate = this.skillDao.getById(skill.getId());
 		skillToUpdate.setSkillName(skill.getSkillName());
 		this.skillDao.save(skillToUpdate);
 		return new SuccessResult("Kullanıcı Bilgileri Güncellendi");
+	}
+
+	@Override
+	public Result deleteById(int skillId) {
+		this.skillDao.deleteById(skillId);
+		return new SuccessResult();
 	}
 }

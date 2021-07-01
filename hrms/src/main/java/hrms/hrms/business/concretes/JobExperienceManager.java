@@ -38,10 +38,9 @@ public class JobExperienceManager implements JobExperienceService {
 		return new SuccessDataResult<List<JobExperience>>(
 				this.jobExperienceDao.getByCandidate_IdOrderByFinishDateDesc(candidateId));
 	}
-	
+
 	@Override
-	public Result update(JobExperience jobExperience)
-	{
+	public Result update(JobExperience jobExperience) {
 		JobExperience jobExperienceToUpdate = this.jobExperienceDao.getById(jobExperience.getId());
 		jobExperienceToUpdate.setFinishDate(jobExperience.getFinishDate());
 		jobExperienceToUpdate.setPosition(jobExperience.getPosition());
@@ -49,5 +48,11 @@ public class JobExperienceManager implements JobExperienceService {
 		jobExperienceToUpdate.setWorkplaceName(jobExperience.getWorkplaceName());
 		this.jobExperienceDao.save(jobExperienceToUpdate);
 		return new SuccessResult("Kullanıcı bilgileri güncellendi");
+	}
+
+	@Override
+	public Result deleteById(int jobExperienceId) {
+		this.jobExperienceDao.deleteById(jobExperienceId);
+		return new SuccessResult(); 
 	}
 }

@@ -51,7 +51,7 @@ public class EmployersController {
 	@PostMapping("/update")
 	public Result update(@RequestBody Employer employer)
 	{
-		return this.employerService.update(employer);s
+		return this.employerService.update(employer);
 	}
 	
 	@PostMapping("/confirmUpdate")

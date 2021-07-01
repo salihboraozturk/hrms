@@ -14,35 +14,37 @@ import hrms.hrms.dataAccess.abstracts.LanguageDao;
 import hrms.hrms.entities.concretes.Language;
 
 @Service
-public class LanguageManager implements LanguageService
-{
+public class LanguageManager implements LanguageService {
 	private LanguageDao languageDao;
 
 	@Autowired
-	public LanguageManager(LanguageDao languageDao)
-	{
+	public LanguageManager(LanguageDao languageDao) {
 		this.languageDao = languageDao;
 	}
 
 	@Override
-	public DataResult<List<Language>> getByCandidate(int candidateId)
-	{
+	public DataResult<List<Language>> getByCandidate(int candidateId) {
 		return new SuccessDataResult<List<Language>>(this.languageDao.getByCandidate_Id(candidateId));
 	}
 
 	@Override
-	public Result add(Language language)
-	{
+	public Result add(Language language) {
 		this.languageDao.save(language);
 		return new SuccessResult();
 	}
+
 	@Override
-	public Result update(Language language)
-	{
+	public Result update(Language language) {
 		Language languageToUpdate = this.languageDao.getById(language.getId());
 		languageToUpdate.setLanguageLevel(language.getLanguageLevel());
 		languageToUpdate.setLanguageName(language.getLanguageName());
 		this.languageDao.save(languageToUpdate);
 		return new SuccessResult("Kullanıcı Bilgileri Güncellendi");
+	}
+
+	@Override
+	public Result deleteById(int languageId) {
+		this.languageDao.deleteById(languageId);
+		return new SuccessResult();
 	}
 }
